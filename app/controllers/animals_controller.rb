@@ -1,11 +1,11 @@
 class AnimalsController < ApplicationController
     def index
         animals = Animal.all
-        render json: animals
+        render json: animals, include: [:latitude, :longitude, :date]
     end
     def show
         animal = Animal.find(params[:id])
-        render json: animal
+        render json: animal, include: [:latitude, :longitude, :date]
     end
     def create
         animal = Animal.create(animal_params)
@@ -34,6 +34,6 @@ class AnimalsController < ApplicationController
     end
     private
     def animal_params
-        params.require(:animal).permit(:name, :binomial, :m)
+        params.require(:animal).permit(:name, :binomial )
     end
 end
